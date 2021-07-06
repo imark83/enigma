@@ -30,29 +30,15 @@ public:
   void setDisplay(unsigned op);
 
 
+  Rotor & operator=(const Rotor &op2) ;
+
 
   ~Rotor() {}
+
   
 };
 
-Rotor & operator=(Rotor &op1, Rotor &op2) {
-  op1.rotNumber=op2.rotNumber;    // ROTOR ID. NOT USED IN COMPUTING
-  op1.ringstellung=op2.ringstellung;           // RINGSTELLUNG
 
-  op1.display=op2.display;      // DISPLAYED LETTER
-  op1.tick_label=op2.tick_label;
-
-
-
-  op1.scram = op2.scram; // FORWARD SCRAMBLING, 
-      // LEFT TO RIGHT
-
-  op1.backscram = op2.backscram; // BACKWARD SCRAMBLING, 
-      // RIGHT TO LEFT
-
-
-  return op1;
-}
 
 class Reflector {
 public:
