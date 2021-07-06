@@ -30,7 +30,7 @@ public:
 
   void setRing(unsigned op);
   void setDisplay(unsigned op);
-
+  void tick();
 
   Rotor & operator=(const Rotor &op2) ;
 

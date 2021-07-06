@@ -16,6 +16,19 @@ public:
     rotor[2] = Rotor(rot3,ring3);
 
   }
+
+
+  void tick(){
+    if(rotor[1].tick_label == rotor[1].display) {
+      rotor[0].tick();
+      rotor[1].tick();
+      rotor[2].tick();
+    } else if (rotor[0].tick_label == rotor[0].display) {
+      rotor[0].tick();
+      rotor[1].tick();
+    }
+  }
+
   ~Enigma() {}
   
 };

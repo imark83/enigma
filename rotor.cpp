@@ -47,20 +47,25 @@ Rotor::Rotor(unsigned rotNumber, unsigned ringstellung) {
   }
 }
 
-Rotor & Rotor::operator=(const Rotor &op2) {
-  this->rotNumber=op2.rotNumber;    // ROTOR ID. NOT USED IN COMPUTING
-  this->ringstellung=op2.ringstellung;           // RINGSTELLUNG
 
-  this->display=op2.display;      // DISPLAYED LETTER
+void Rotor::tick() {
+  this->display++;
+  if(this->display>=26) this->display=0;
+
+  return;
+}
+
+
+
+Rotor & Rotor::operator=(const Rotor &op2) {
+  this->rotNumber=op2.rotNumber;
+  this->ringstellung=op2.ringstellung;
+
+  this->display=op2.display;
   this->tick_label=op2.tick_label;
 
-
-
-  this->scram = op2.scram; // FORWARD SCRAMBLING, 
-      // LEFT TO RIGHT
-
-  this->backscram = op2.backscram; // BACKWARD SCRAMBLING, 
-      // RIGHT TO LEFT
+  this->scram = op2.scram;
+  this->backscram = op2.backscram;
 
 
   return *this;
