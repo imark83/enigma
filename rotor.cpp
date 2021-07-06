@@ -1,5 +1,19 @@
 #include "rotor.hpp"
 
+
+Rotor::Rotor(const Rotor &op) {
+  this->rotNumber = op.rotNumber;
+  this->ringstellung = op.ringstellung;
+
+  this->display = op.display;
+  this->tick_label = op.tick_label;
+
+  this->scram = op.scram;
+  this->backscram = op.backscram;
+
+}
+
+
 Rotor::Rotor(unsigned rotNumber, unsigned ringstellung) {
   this->rotNumber = rotNumber;
   this->ringstellung = ringstellung;
@@ -14,16 +28,17 @@ Rotor::Rotor(unsigned rotNumber, unsigned ringstellung) {
         {20,22,24, 6, 0, 3, 5,15,21,25, 1, 4, 2,
          10,12,19, 7,23,18,11,17, 8,13,16,14, 9};
         tick_label = 16;
+      break;
     case 2: this->scram= 
         {0,9,15,2,25,22,17,11,5,1,3,10,14,
          19,24,20,16,6,4,13,7,23,12,8,21,18};
         tick_label = 4;
-    break;
+      break;
     case 3: this->scram= 
         {19,0,6,1,15,2,18,3,16,4,20,5,21,
         13,25,7,24,8,23,9,22,11,17,10,14,12};
         tick_label = 21;
-    break;
+      break;
   }
 
   backscram = std::vector<unsigned>(scram.size());

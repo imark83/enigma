@@ -20,6 +20,8 @@ public:
       // RIGHT TO LEFT
 
 
+  Rotor() {}
+  Rotor(const Rotor &);
   Rotor(unsigned rotNumber, unsigned ringstellung);
 
 

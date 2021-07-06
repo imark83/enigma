@@ -9,10 +9,12 @@ public:
       unsigned ring1 = 0, unsigned ring2 = 0, unsigned ring3 = 0) {
     //Rotor r1(rot1,ring1);
 
-    rotor = {Rotor(rot1,ring1),
-             Rotor(rot2,ring2),
-             Rotor(rot3,ring3)
-    };
+    rotor = std::vector<Rotor>(3);
+
+    rotor[0] = Rotor(rot1,ring1);
+    rotor[1] = Rotor(rot2,ring2);
+    rotor[2] = Rotor(rot3,ring3);
+
   }
   ~Enigma() {}
   
