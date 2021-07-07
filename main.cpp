@@ -4,6 +4,7 @@
 
 char toChar(unsigned op) {
   if (op == 26) return ' ';
+  if (op == 27) return '\n';
   return 'A' + op;
 }
 
@@ -34,6 +35,11 @@ public:
     rotor[2].setDisplay(d3);
   }
 
+  void setDisplay(std::string disp) {
+      setDisplay(disp[0]-'A',disp[1]-'A',disp[2]-'A');
+  }
+
+
   void setPlug(unsigned op1, unsigned op2) {
     plugbloard[op1] = op2;
     plugbloard[op2] = op1;
@@ -52,19 +58,18 @@ public:
   }
 
   unsigned encode(unsigned op) {
-    if(op == ' ') return 26;
     tick();
     unsigned rop = plugbloard[op];
-    //rop = rotor[0].back(rotor[1].back((rotor[2].back(op))));
-    rop = rotor[2].back(op);
-    rop = rotor[1].back(op);
-    rop = rotor[0].back(op);
+    rop = rotor[0].back(rotor[1].back((rotor[2].back(rop))));
+    rop = reflector.back(rop);
     rop = rotor[2].forward(rotor[1].forward(rotor[0].forward(rop)));
     return plugbloard[rop]; 
   }
 
 
   unsigned encode(char op) {
+    if(op == 32) return 26;
+    if(op == '\n') return 27;
     unsigned aux = op;
     aux -= 'A';
     return encode(aux);
@@ -106,9 +111,18 @@ int main(int argc, char const *argv[]) {
   enigma.setPlug(8,13);  enigma.setPlug(10,12);
   enigma.setPlug(14,22); enigma.setPlug(17,23);
 
-  enigma.setDisplay(22,23,2);
+  //enigma.setDisplay(22,23,2);
+  enigma.setDisplay("BLA");
 
-  std::string msg("KCH");
+  std::string msg("EDPUD NRGYS ZRCXN \n\
+UYTPO MRMBO FKTBZ REZKM \n\
+LXLVE FGUEY SIOZV EQMIK \n\
+UBPMM YLKLT TDEIS MDICA \n\
+GYKUA CTCDO MOHWX MUUIA \n\
+UBSTS LRNBZ SZWNR FXWFY \n\
+SSXJZ VIJHI DISHP RKLKA \n\
+YUPAD TXQSP INQMA TLPIF \n\
+SVKDA SCTAC DPBOP VHJK");
 
   for (char c : msg) {
     std::cout << toChar(enigma.encode(c));
