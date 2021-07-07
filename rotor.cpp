@@ -39,6 +39,16 @@ Rotor::Rotor(unsigned rotNumber, unsigned ringstellung) {
         13,25,7,24,8,23,9,22,11,17,10,14,12};
         tick_label = 21;
       break;
+    case 4: this->scram= 
+        { 7,25,22,21, 0,17,19,13,11, 6,20,15,23,
+         16, 2, 4, 9,12, 1,18,10, 3,24,14, 8, 5};
+        tick_label = 9;
+      break;
+    case 5: this->scram= 
+        {16, 2,24,11,23,22, 4,13, 5,19,25,14,18,
+         12,21, 9,20, 3,10, 6, 8, 0,17,15, 7, 1};
+        tick_label = 25;
+      break;
   }
 
   backscram = std::vector<unsigned>(scram.size());
