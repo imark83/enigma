@@ -1,6 +1,10 @@
 #include <iostream>
+#include <string>
 #include "rotor.hpp"
 
+char toChar(unsigned op) {
+  return 'A' + op;
+}
 
 class Enigma {
 public:
@@ -19,27 +23,49 @@ public:
 
   }
 
+  void setDisplay(unsigned d1, unsigned d2, unsigned d3) {
+    rotor[0].setDisplay(d1);
+    rotor[1].setDisplay(d2);
+    rotor[2].setDisplay(d3);
+  }
+
 
   void tick(){
     if(rotor[1].tick_label == rotor[1].display) {
       rotor[0].tick();
       rotor[1].tick();
       rotor[2].tick();
-    } else if (rotor[0].tick_label == rotor[0].display) {
-      rotor[0].tick();
+    } else if (rotor[2].tick_label == rotor[2].display) {
+      rotor[2].tick();
       rotor[1].tick();
-    }
+    } else rotor[2].tick();
   }
 
   unsigned encode(unsigned op) {
+    tick();
     unsigned rop = rotor[0].back(rotor[1].back((rotor[2].back(op))));
     rop = reflector.back(rop);
     return rotor[2].forward(rotor[1].forward(rotor[0].forward(rop)));
   }
 
+
+  unsigned encode(char op) {
+    unsigned aux = op;
+    aux -= 'A';
+    return encode(aux);
+  }
+
   ~Enigma() {}
   
 };
+
+std::ostream & operator<<(std::ostream &out, const Enigma &enigma) {
+  out << "(" << toChar(enigma.rotor[0].display) <<",";
+  out << toChar(enigma.rotor[1].display) <<",";
+  out << toChar(enigma.rotor[2].display) <<")";
+
+  return out;
+}
 
 
 std::ostream & operator<< (std::ostream &out, 
@@ -54,8 +80,15 @@ std::ostream & operator<< (std::ostream &out,
 int main(int argc, char const *argv[]) {
   
   Enigma enigma(1,2,3);
+  enigma.setDisplay(0,1,2);
 
-  std::cout << "7 -> " << enigma.encode(7) << std::endl;
+  std::string msg("AEFAEJXXBNXYJTY");
+
+  for (char c : msg) {
+    std::cout << toChar(enigma.encode(c));
+  }
+  std::cout << std::endl;
+
 
   return 0;
 }
