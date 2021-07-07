@@ -13,8 +13,8 @@ public:
   Reflector reflector;
   std::vector<unsigned> plugbloard;
 
-  Enigma(unsigned rot1, unsigned rot2, unsigned rot3, unsigned notB = 1,
-      unsigned ring1 = 0, unsigned ring2 = 0, unsigned ring3 = 0) : reflector(notB) {
+  Enigma(unsigned rot1, unsigned rot2, unsigned rot3, unsigned isB = 1,
+      unsigned ring1 = 0, unsigned ring2 = 0, unsigned ring3 = 0) : reflector(isB) {
     //Rotor r1(rot1,ring1);
 
     rotor = std::vector<Rotor>(3);
@@ -55,8 +55,10 @@ public:
     if(op == ' ') return 26;
     tick();
     unsigned rop = plugbloard[op];
-    rop = rotor[0].back(rotor[1].back((rotor[2].back(op))));
-    rop = reflector.back(rop);
+    //rop = rotor[0].back(rotor[1].back((rotor[2].back(op))));
+    rop = rotor[2].back(op);
+    rop = rotor[1].back(op);
+    rop = rotor[0].back(op);
     rop = rotor[2].forward(rotor[1].forward(rotor[0].forward(rop)));
     return plugbloard[rop]; 
   }
@@ -97,7 +99,7 @@ int main(int argc, char const *argv[]) {
 //   7  II  IV  V     02 21 12    AV BS CG DL FU HZ IN KM OW RX
 
 
-  Enigma enigma(2,4,5,0,1,20,11);
+  Enigma enigma(2,4,5,1,1,20,11);
   enigma.setPlug(0,21);  enigma.setPlug(1,18); 
   enigma.setPlug(2,6);   enigma.setPlug(3,11);
   enigma.setPlug(5,20);  enigma.setPlug(7,25);
