@@ -5,6 +5,8 @@
 class Enigma {
 public:
   std::vector<Rotor> rotor;
+  Reflector reflector;
+
   Enigma(unsigned rot1, unsigned rot2, unsigned rot3,
       unsigned ring1 = 0, unsigned ring2 = 0, unsigned ring3 = 0) {
     //Rotor r1(rot1,ring1);
@@ -29,6 +31,12 @@ public:
     }
   }
 
+  unsigned encode(unsigned op) {
+    unsigned rop = rotor[0].back(rotor[1].back((rotor[2].back(op))));
+    rop = reflector.back(rop);
+    return rotor[2].forward(rotor[1].forward(rotor[0].forward(rop)));
+  }
+
   ~Enigma() {}
   
 };
@@ -46,6 +54,8 @@ std::ostream & operator<< (std::ostream &out,
 int main(int argc, char const *argv[]) {
   
   Enigma enigma(1,2,3);
+
+  std::cout << "7 -> " << enigma.encode(7) << std::endl;
 
   return 0;
 }
