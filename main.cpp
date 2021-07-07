@@ -79,10 +79,10 @@ std::ostream & operator<< (std::ostream &out,
 
 int main(int argc, char const *argv[]) {
   
-  Enigma enigma(1,2,3);
-  enigma.setDisplay(0,1,2);
+  Enigma enigma(1,2,3,9,13,20);
+  enigma.setDisplay(23,24,25);
 
-  std::string msg("AEFAEJXXBNXYJTY");
+  std::string msg("QKTPEBZIUK");
 
   for (char c : msg) {
     std::cout << toChar(enigma.encode(c));
