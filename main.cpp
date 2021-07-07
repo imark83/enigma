@@ -97,7 +97,7 @@ int main(int argc, char const *argv[]) {
 //   7  II  IV  V     02 21 12    AV BS CG DL FU HZ IN KM OW RX
 
 
-  Enigma enigma(2,4,5,1,1,20,11);
+  Enigma enigma(2,4,5,0,1,20,11);
   enigma.setPlug(0,21);  enigma.setPlug(1,18); 
   enigma.setPlug(2,6);   enigma.setPlug(3,11);
   enigma.setPlug(5,20);  enigma.setPlug(7,25);
